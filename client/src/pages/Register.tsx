@@ -57,7 +57,7 @@ const RegisterForm: React.FC = () => {
 
     try {
       const response = await axios.post(
-        `${import.meta.env.VITE_BASE_URL}/api/user/register`,
+        `http://localhost:3000/api/user/register`,
         formData
       );
       console.log(response);
