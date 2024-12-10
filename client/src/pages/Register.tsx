@@ -1,3 +1,4 @@
+import axios from "axios";
 import React, { useState, ChangeEvent, FormEvent } from "react";
 import { Link } from "react-router-dom";
 
@@ -50,9 +51,19 @@ const RegisterForm: React.FC = () => {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     console.log("Form Data Submitted:", formData);
+
+    try {
+      const response = await axios.post(
+        `${import.meta.env.VITE_BASE_URL}/api/user/register`,
+        formData
+      );
+      console.log(response);
+    } catch (err) {
+      console.log(err);
+    }
     // Add your form submission logic here
   };
 
