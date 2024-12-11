@@ -55,10 +55,15 @@ const RegisterForm: React.FC = () => {
     e.preventDefault();
     console.log("Form Data Submitted:", formData);
 
+    const payload = {
+      userName: formData.name,
+      email: formData.email,
+      password: formData.password,
+    };
     try {
       const response = await axios.post(
-        `http://localhost:3000/api/user/register`,
-        formData
+        `http://localhost:3000/api/register`,
+        payload
       );
       console.log(response);
     } catch (err) {

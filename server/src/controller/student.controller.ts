@@ -3,16 +3,17 @@ import { Student } from "../models/student.model";
 
 const studentRegistration = async (req: Request, res: Response) => {
   try {
-    const { name, email, password } = req.body;
-    if (!name || !email || !password) {
+    const { userName, email, password } = req.body;
+    if (!userName || !email || !password) {
       res.status(400).json({
         success: false,
         message: "all fields are required!!",
       });
       return;
     }
-    const student = new Student({ name, email, password });
-    await student.save();
+    // const student = new Student({ name, email, password });
+    // await student.save();
+    const student = await Student.create({ userName, email, password });
     res.status(201).json({
       success: true,
       message: "user created successfully",
