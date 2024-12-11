@@ -1,14 +1,13 @@
 import mongoose, { Schema, Model, Document } from "mongoose";
-
-interface IUser extends Document {
-  name: string;
+interface IStudent extends Document {
+  userName: string;
   email: string;
   password: string;
 }
 
-const userSchema: Schema<IUser> = new mongoose.Schema(
+const studentSchema: Schema<IStudent> = new mongoose.Schema(
   {
-    name: {
+    userName: {
       type: String,
       required: true,
     },
@@ -24,7 +23,7 @@ const userSchema: Schema<IUser> = new mongoose.Schema(
   { timestamps: true }
 );
 
-export const Student: Model<IUser> = mongoose.model<IUser>(
+export const Student: Model<IStudent> = mongoose.model(
   "Student",
-  userSchema
+  studentSchema
 );
