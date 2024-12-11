@@ -52,9 +52,19 @@ const studentLogin = async (req: Request, res: Response) => {
       return;
     }
 
-    const isMatch = await verifyPassword(user.password, password);
+    // const isMatch = await verifyPassword(user.password, password);
 
-    if (!isMatch) {
+    console.log(user.password, password);
+
+    // if (!isMatch) {
+    //   res.status(403).json({
+    //     success: false,
+    //     message: "invalid credentials",
+    //   });
+    //   return;
+    // }
+
+    if (user.password !== password) {
       res.status(403).json({
         success: false,
         message: "invalid credentials",

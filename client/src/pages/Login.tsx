@@ -1,5 +1,6 @@
+import axios from "axios";
 import React, { useState, ChangeEvent, FormEvent } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 interface FormData {
   email: string;
@@ -44,14 +45,29 @@ const Login: React.FC = () => {
     password: "",
     confirmPassword: "",
   });
+  const navigate = useNavigate();
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
+    try {
+      if (formData.password === formData.confirmPassword) {
+        const response = await axios.post(`http://localhost:3000/api/login`, {
+          email: formData.email,
+          password: formData.password,
+        });
+        console.log(response, "this is the login response");
+        if (response.status === 200) {
+          navigate("/dashboard");
+        }
+      }
+    } catch (err) {
+      console.log(err);
+    }
     console.log("Form Data Submitted:", formData);
     // Add your form submission logic here
   };
