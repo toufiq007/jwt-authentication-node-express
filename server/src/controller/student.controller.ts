@@ -5,18 +5,20 @@ const studentRegistration = async (req: Request, res: Response) => {
   try {
     const { name, email, password } = req.body;
     if (!name || !email || !password) {
-      return res.status(400).json({
+      res.status(400).json({
         success: false,
         message: "all fields are required!!",
       });
+      return;
     }
     const student = new Student({ name, email, password });
     await student.save();
-    return res.status(201).json({
+    res.status(201).json({
       success: true,
       message: "user created successfully",
       data: student,
     });
+    return;
   } catch (err) {
     console.log(err);
   }

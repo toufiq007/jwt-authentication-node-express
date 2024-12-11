@@ -3,6 +3,7 @@ import cors from "cors";
 import cookieParser from "cookie-parser";
 import dotenv from "dotenv";
 import { connectDb } from "./db/dbConfig";
+import studentRoutes from "./routes/student.routes";
 dotenv.config();
 
 connectDb();
@@ -11,6 +12,10 @@ const app: Application = express();
 // middlewares
 app.use(cors());
 app.use(express.json());
+app.use("/api", studentRoutes);
+
+//  port
+const port = process.env.PORT || 4000;
 
 app.get("/getUsers", (req: Request, res: Response) => {
   res.status(200).json({
@@ -20,6 +25,6 @@ app.get("/getUsers", (req: Request, res: Response) => {
   return;
 });
 
-app.listen(3000, () => {
-  console.log(`server is running on ${3000}`);
+app.listen(port, () => {
+  console.log(`server is running on ${port}`);
 });
