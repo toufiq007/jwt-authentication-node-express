@@ -11,6 +11,14 @@ const studentRegistration = async (req: Request, res: Response) => {
       });
       return;
     }
+
+    const isPresent = await Student.findOne({ email });
+    if (isPresent) {
+      res.status(400).json({
+        success: false,
+        message: "user is already present",
+      });
+    }
     // const student = new Student({ name, email, password });
     // await student.save();
     const student = await Student.create({ userName, email, password });
