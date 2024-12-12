@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useState, ChangeEvent, FormEvent } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 interface FormData {
   name: string;
@@ -45,6 +45,7 @@ const RegisterForm: React.FC = () => {
     email: "",
     password: "",
   });
+  const navigate = useNavigate();
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -65,6 +66,9 @@ const RegisterForm: React.FC = () => {
         `http://localhost:3000/api/register`,
         payload
       );
+      if (response.status === 201) {
+        navigate("/login");
+      }
       console.log(response);
     } catch (err) {
       console.log(err);
